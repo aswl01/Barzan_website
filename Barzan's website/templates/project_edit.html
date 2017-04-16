@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<html>
+<head>
+	<title>
+		BARZAN MOZAFARI's project edit
+	</title>
+	<meta charset="UTF-8">
+	<meta name = "description" content="BARZAN MOZAFARI's project">
+</head>
+<body>
+<h1>New Projects</h1>
+	{% for err in errList %}
+		<p class="error">
+			{{err}}
+		</p>
+	{% endfor %}
+	<table>
+		<form action="" method="post" enctype=multipart/form-data>
+		
+		<tr>
+			<td>Project name:</td>
+			<td><input type = 'text' size="80" name = 'project_name' id = project_name></td>
+		</tr>
+		
+		<tr>
+			<td>Subtitle name:</td>
+			<td><input type = 'text' size="80" name = 'project_subtitle' id = project_subtitle></td>
+		</tr>
+
+		<tr>
+			<td>Contents:</td>
+			<td><textarea warp ="soft" rows = "15" cols="150" name="project_contents" placeholder="Please edit the content here!"></textarea></td>
+		</tr>
+		<tr>
+			<td>Project website:</td>
+			<td><input type = 'text' size="50" name = 'project_website' id = project_website></td>
+		</tr>
+		<tr>
+			<td>Project image:</td>
+			<td><input type=file name=file></td>
+		</tr>
+		<tr>
+			<td>Status:</td>
+			<td>
+				<input type = 'radio' name = 'status' value="current"> current
+				<br>
+				<input type="radio" name="status" value="past"> past
+				<br>
+			</td>
+		</tr>
+		<tr>
+			<input type="submit" value="Submit">
+		</tr>
+		</form>
+	</table>
+</body>
+{% endblock %}
+<footer>
+	<p>Done by WEILUN SHI</p>
+</footer>
+</html>
+

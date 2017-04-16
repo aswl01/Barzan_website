@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block content %}
+
+<head>
+  <title>User</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="EECS485 P1 Albums Page">
+</head>
+
+<body>
+<div class = "center">
+	<h1>
+		Edit Account!!
+	</h1>
+	<p>
+		Hello! you can edit your info here!
+	</p>
+	{% for err in errList %}
+	<p class="error">
+		{{err}}
+	</p>
+	{% endfor %}
+
+	<form action="" method="post" enctype="multipart/form-data">
+		<p>
+			FirstName: <input type="text" name="firstname", id="update_firstname_input">
+		</p>
+		<p>
+			<input type="submit" value="Submit" id="update_firstname_submit">
+		</p>
+	</form>
+	<form action="" method="post" enctype="multipart/form-data">
+		<p>
+			LastName: <input type="text" name="lastname", id="update_lastname_input">
+		</p>
+		<p>
+			<input type="submit" value="Submit" id="update_lasname_submit">
+		</p>
+	</form>
+	<form action="" method="post" enctype="multipart/form-data">
+		<p>
+			Password1: <input type=password name="password1", id="update_password1_input">
+		</p>
+		<p>
+			Password2: <input type=password name="password2", id="update_password2_input">
+		</p>
+		<p>
+			<input type="submit" value="Submit" id="update_password_submit">
+		</p>
+	</form>
+</div>
+</body>
+{% endblock %}

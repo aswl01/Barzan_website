@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+{% block content %}
+<html>
+<head>
+	<title>
+		BARZAN MOZAFARI's website
+	</title>
+	<meta charset="UTF-8">
+	<meta name = "description" content="BARZAN MOZAFARI's website">
+</head>
+
+<body>
+	<h1>Current Projects</h1>
+	<ul>
+	{% for pj in curr %}
+	    <li>
+            <a href="#{{pj.pname}}">
+                <b>{{pj.pname}}</b>
+                {% if pj.subtitle %}
+                 : {{pj.subtitle}}
+                {% endif %}
+            </a>
+	    </li>
+	{% endfor %}
+	</ul>
+
+    <h1>Past Projects</h1>
+	<ul>
+	{% for pj in past %}
+	    <li>
+            <a href="#{{pj.pname}}">
+                <b>{{pj.pname}}</b>
+                {% if pj.subtitle %}
+                 : {{pj.subtitle}}
+                {% endif %}
+            </a>
+	    </li>
+	{% endfor %}
+	</ul>
+    {% if session.username %}
+    <div class="strong" style="font-size:200%; background-color: lightblue" align="center" ;>
+        <a href="{{url_for('project_edit.project_edit_route')}}"> Add new project</a>
+    </div>
+        <br>
+        <br>
+    {% endif %}
+        {% for result in res.values() %}
+        {% if session.username %}
+        <div class ="delete_project" align="right">
+        <form method="post" enctype="mulitpart/form-data" >
+        <input type="hidden" name="op_project" value="delete">
+        <input type="hidden" name="pid" value="{{result.project.pid}}">
+        <input type = submit value="Delete Project: {{result.project.pname}}" style="font-size: 130%">
+        </form>
+        </div>
+        {% endif %}
+    <h2>
+        <p style="line-height: 200%; margin-bottom: 0;">
+                        <a name="{{result.project.pname}}"></a>
+        <b><font size="6" face="Arial"><a href="#{{result.project.pname}}">
+            {{result.project.pname}}</a>
+                            </font></b>
+        </p>
+        {% if result.project.subtitle %}
+        <font size="3" face="Arial"><a href="#{{result.project.pname}}">
+            {{result.project.subtitle}}</a>
+                            </font>
+        {% endif %}
+    </h2>
+    {% if session.username %}
+    <button onclick="myFunction('edit_title{{result.project.pid}}')"> Edit title </button>
+    <form id = "edit_title{{result.project.pid}}" style="display: none" method="post" enctype="mulitpart/form-data">
+        Please enter your new title: <input size="80" type=text name=title> <br>
+        Please enter your new subtitle: <input size="80" type=text name=subtitle> <br>
+        <input type="hidden" name=pid value = "{{result.project.pid}}"> <br>       
+        <input type="submit" value="Submit">
+    </form>
+    {% endif %}
+    <p>
+        {% if result.project.pjwebsite %}
+        <b><font size="3" face="Arial">Website: </font><a href="{{result.project.pjwebsite}}">{{result.project.pjwebsite}}</a></b>                
+        {% endif %}
+
+    </p>
+        {% if result.peoples %}
+        <p>
+
+            <b><font size="3" face="Arial">People: </font></b>
+            {% for people in result.peoples %}
+            {% if people.pwebsite %}
+            <a href ="{{people.pwebsite}}">{{people.name}}</a>, &nbsp
+            {% else %}
+            {{people.name}}
+            {% endif %}
+<!--             {% if session.username %}
+            <form id = "edit_people{{result.project.pid}}" style="display: none" method="post" enctype="mulitpart/form-data">
+                <input type="hidden" name=pid value = "{{result.project.pid}}">
+                <input type="hidden" name="people_name" value="{{people.name}}">
+                <input type="submit" value="Delete">
+            </form>
+            {% endif %} -->
+            {% endfor %}
+        </p>
+        {% endif %}
+    <p></p>
+     {% if session.username %}
+        <button onclick="myFunction('edit_people{{result.project.pid}}')"> REMOVE People </button>
+        <form id = "edit_people{{result.project.pid}}" style="display: none" method="post" enctype="mulitpart/form-data">
+        <input type="hidden" name="op_people" value="delete">
+        <input type="hidden" name="pid" value="{{result.project.pid}}">
+        {% for people in result.peoples %}
+            <input type="radio" name="people_name" value="{{people.name}}"> {{people.name}} <br>
+        {% endfor %}
+        <input type="submit" value = "Delete">
+        </form>
+        <br>
+        <br>
+        <form method="post" enctype="mulitpart/form-data">
+            <input type="hidden" name="op_people" value="add">
+            <input type="hidden" name="pid" value="{{result.project.pid}}">
+            <strong>Add People here:</strong>
+            <br>
+            Please enter people name here: <input type="text" name="people_name">
+            <br>
+            Please enter his/her website here: <input type="text" name="people_website">
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+        <br>
+        <br>
+        <br>
+    {% endif %}
+
+
+    {% if result['project']['picid'] %}
+    <img src="/static/images/{{result['project']['picid']}}", alt ="{{result['project']['picid']}}", width="20%">
+    {% endif %}
+    <p></p>
+    <p>
+        {{result.project.contents}}
+    </p>
+    {% if session.username %}
+    <br>
+    <button onclick="myFunction('edit_content{{result.project.pid}}')"> Edit Project content </button>
+    <form id = "edit_content{{result.project.pid}}" style="display: none" method="post" enctype="mulitpart/form-data">
+        <!-- <input type=text height="50" name=pjcontent placeholder="Please edit the content here!" size = 200 height="20"> <br> -->
+        <textarea warp ="soft" rows = "15" cols="150" name="pjcontent" placeholder="Please edit the content here!"></textarea>
+        <!-- <textarea class="input" rows = "15" cols="150" name="pjcontent"></textarea> -->
+        <input type="hidden" name=pid value = "{{result.project.pid}}"> <br>       
+        <input type="submit" value="Submit">
+    </form>
+    {% endif %}
+    <br>
+    <br>
+    {% for new in result.news %}
+    <p>
+        <font color="red">
+                        <b>{{new.title}}  </b>
+                                            </font>
+        <br>
+        "{{new.newscontent}}"
+    {% if session.username %}
+    <br>
+    <form method="post" enctype="mulitpart/form-data" align="right">
+        <input type="hidden" name="op_news" value="delete">
+        <input type="hidden" name="new_id" value="{{new.newid}}">
+        <input type="submit" value="Delete">
+    </form>
+    {% endif %}
+    </p>
+    {% endfor %}
+    {% if session.username %}
+    <br>
+    <button onclick="myFunction('add_news{{result.project.pid}}')"> Add more news </button>
+    <form id = "add_news{{result.project.pid}}" style="display: none" method="post" enctype="mulitpart/form-data">
+        <input type="hidden" name="op_news" value="add">
+        <input type="hidden" name="pid" value="{{result.project.pid}}">
+        Please enter the title of the News: <input type="text" name="news_title" size="80">
+        <br>
+        <textarea warp ="soft" rows = "5" cols="150" name="newscontent" placeholder="News content here!"></textarea>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    {% endif %}
+    <br>
+    <p>
+        <b>
+            <font size="3" face="Arial">Publications:</font>
+        </b><br>
+    </p>
+    <ul>
+        {% for publication in result.publications %}
+        <li>
+            {{publication.artist}} <a href ="{{publication.link}}">{{publication.title}}</a>
+            <i>
+                {{publication.background}}
+            </i>
+            {% for public in publication.public_content %}
+            <br>
+            <a href="{{public.link}}">
+                <font color="#04B404"><strong>{{public.title}}</strong></font>
+            </a>
+            {% endfor %}
+            {% if session.username %}
+            <form method="post" enctype="mulitpart/form-data" align="right">
+                <input type="hidden" name="op_public" value="delete">
+                <input type="hidden" name="public_id" value="{{publication.publicid}}">
+                <input type="submit" value="Delete">
+            </form>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% if session.username %}
+    <br>
+    <br>
+    <button onclick="myFunction('add_public{{result.project.pid}}')"> Add more publications </button>
+    <form id = "add_public{{result.project.pid}}" style="display: none" method="post" enctype="mulitpart/form-data">
+        <input type="hidden" name="op_public" value="add">
+        <input type="hidden" name="pid" value="{{result.project.pid}}">
+        Please enter title of the publication: <input type="text" name="public_title" size="100">
+        <br>
+        Please enter the link to the publication: <input type="text" name="link" size="100">
+        <br>
+        Please enter the reference of the publication: <input type="text" name="background" size="100">
+        <br>
+        Please enter the artists of the publication: <input type="text" name="artist" size = "100">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    {% endif %}
+    <br> 
+    <br>
+    {% endfor %}
+</body>
+
+<script>
+    function myFunction(y) {
+        var x = document.getElementById(y);
+        if(x.style.display === 'none'){
+            x.style.display = 'block';
+        }
+        else   {
+            x.style.display ='none';
+        }
+    }
+</script>
+
+<footer>
+	<p>Done by WEILUN SHI</p>
+</footer>
+</html>
+{% endblock %}

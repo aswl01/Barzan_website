@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block content %}
+
+<head>
+  <title>Login</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="BARZAN MOZAFARI's website">
+</head>
+
+<body>
+<div class = "center">
+	<h1>
+		Login!
+	</h1>
+	<p>
+		Hello! you can login here!
+	</p>
+	{% for err in errList %}
+	<p class="error">
+		{{err}}
+	</p>
+	{% endfor %}
+	<form action="" method="post" enctype="mulitpart/form-data">
+	Please enter your username: <input type="text" name="username", id="login_username_input"> <br>
+	Please enter your password: <input type="password" name="password", id="login_password_input"> <br>
+	<input type="submit" value="Login" id="login_submit">
+	</form>
+	</div>
+</body>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{c393070c-9c3c-4859-8228-1921db5cfe4d}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>app.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+    <InterpreterVersion />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="app.py" />
+    <Compile Include="config.py" />
+    <Compile Include="controllers\extra.py" />
+    <Compile Include="controllers\login.py" />
+    <Compile Include="controllers\logout.py" />
+    <Compile Include="controllers\main.py" />
+    <Compile Include="controllers\__init__.py" />
+    <Compile Include="extensions.py" />
+    <Compile Include="init_password.py" />
+    <Compile Include="init_sql.py" />
+    <Compile Include="sanity_test.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="controllers\login.pyc" />
+    <Content Include="controllers\logout.pyc" />
+    <Content Include="controllers\main.pyc" />
+    <Content Include="controllers\__init__.pyc" />
+    <Content Include="static\css\style.css" />
+    <Content Include="static\images\5b3a83a656e2a57b88e7921088959f79.png" />
+    <Content Include="static\images\66cbefa2bb3cc4ac349d801c08169107.png" />
+    <Content Include="static\images\9cd3d524adcc383edb869423ada65919.gif" />
+    <Content Include="static\images\d288cfed4a0677729ba7168128bff587.png" />
+    <Content Include="static\images\e73a6e0b81a79941e7dd4b08b5e0a053.gif" />
+    <Content Include="static\images\e7da48a2cbb1d3322fb68c61c63223e7.jpg" />
+    <Content Include="static\images\e7da48a2cbb1d3322fb68c61c63223e7.png" />
+    <Content Include="static\images\User Modeling.jpg" />
+    <Content Include="static\js\main.js" />
+    <Content Include="templates\base.html" />
+    <Content Include="templates\error.html" />
+    <Content Include="templates\error2.html" />
+    <Content Include="templates\index.html" />
+    <Content Include="templates\login.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="controllers\" />
+    <Folder Include="static\" />
+    <Folder Include="static\css" />
+    <Folder Include="static\images" />
+    <Folder Include="static\js" />
+    <Folder Include="templates\" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>

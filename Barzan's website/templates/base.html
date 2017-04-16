@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="/static/css/style.css" />
+	<style>
+		
+	    a:link, a:visited {
+		    color: #7D0612;
+		    text-decoration: none;
+	    }
+
+		a:hover, a:active{
+			text-decoration: underline;
+		}
+
+	    #msbnav > div > div > a, #msbnav > div > div > span {
+		    font-size: 32px;
+		    font-family: "Lato",'Helvetica Neue',Helvetica,Arial,sans-serif;
+		    color: #DCDCDC;
+	    }
+	    input:{
+	    	width:600;
+	    }
+	
+	</style>
+</head>
+<body>
+
+<div class = "center">
+    <p style="font-family:courier;">
+		{% if session.username %} Welcome! {{session.firstname}} {{session.lastname}} ^v^
+	<a href="{{ url_for('user.user_edit_route')}}" id="nav_edit"> Edit Account</a>
+	<form action="{{ url_for('logout.logout_route')}}" method="post">
+		<input type="submit" value="logout" id="nav_logout">
+	</form>
+	</p>
+	
+	{% endif %}
+	{% if not session.username %} Hello visitor, you are currently not login.
+	<a href="{{ url_for('login.login_route')}}", id="home_login"> Login</a>
+	{% endif %}
+	</div>
+    <div style="font-size:180%;background-color: gold" align="center">
+		<div class="navbar-header" > 
+			<a class="navbar-brand" href="http://web.eecs.umich.edu/~mozafari/">Barzan Mozafari</a>
+		</div> 
+		<div class="navbar-header">
+			<span class="navbar-brand" style="padding-left:0; padding-right:0">&nbsp;</span>
+		</div>
+		<div class="navbar-header"> 
+			<a class="navbar-brand" href="http://umich.edu/">University Of Michigan</a>
+		</div> 
+		<div class="navbar-header">
+			<span class="navbar-brand" style="padding-left:0; padding-right:0">&nbsp;</span>
+		</div>
+		<div class="navbar-header" > 
+			<a class="navbar-brand" href="http://www.eecs.umich.edu/db/">Database Systems</a>
+		</div>
+	</div>
+		{% block content %}{% endblock %}
+<!-- </div> -->
+	<script type="text/javascript" src="/static/js/main.js"></script>
+</body>
+
+</html>
